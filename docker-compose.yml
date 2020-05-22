@@ -1,0 +1,16 @@
+version: '2'
+services:
+  php_dev:
+    container_name: php7.3-oracle-sqlserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80" 
+    volumes:
+      - D:\ambiente_desenvolvedor_php:/var/www
+      - D:\ambiente_desenvolvedor_php\docker_php7\000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - D:\ambiente_desenvolvedor_php\docker_php7\php.ini:/etc/php/7.3/apache2/php.ini
+      - D:\ambiente_desenvolvedor_php\docker_php7\apache2.conf:/etc/apache2/apache2.conf
+    restart: always
+    entrypoint: bash -c "service apache2 restart && tail -f /dev/null"
