@@ -24,10 +24,6 @@ RUN cd /tmp/files \
 && echo "/usr/lib/oracle/12.1/client64/lib" >> /etc/ld.so.conf.d/oracle.conf \
 && ldconfig \
 && export ORACLE_HOME=/usr/lib/oracle/12.1/client64/ \
-&& pecl channel-update pecl.php.net && pecl install oci8 | printf "\n" \
-&& echo "extension=oci8.so" >> /etc/php/7.3/mods-available/oci8.ini \
-&& cd /etc/php/7.3/apache2/conf.d && ln -s /etc/php/7.3/mods-available/oci8.ini oci8.ini \
-&& cd /etc/php/7.3/cli/conf.d && ln -s /etc/php/7.3/mods-available/oci8.ini oci8.ini \
 && mkdir /opt/php7 && cd /opt/php7/ && wget https://github.com/php/php-src/archive/PHP-7.3.zip \
 && unzip /opt/php7/PHP-7.3.zip && cd /opt/php7/php-src-PHP-7.3/ext/pdo_oci/ && phpize \
 && ./configure --with-pdo-oci=instantclient,/usr/lib/oracle/12.1/client64/lib,12.1 \
