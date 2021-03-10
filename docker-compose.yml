@@ -2,15 +2,49 @@ version: '2'
 services:
   php_dev:
     container_name: php7.3-oracle-sqlserver
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: gustavoalevato/php7.3-oracle-sqlserver
     ports:
-      - "8888:80" 
+      - "80:80" 
     volumes:
-      - .\html:/var/www/html
-      - .\000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ..\application:/var/www/html
       - .\php.ini:/etc/php/7.3/apache2/php.ini
-      - .\apache2.conf:/etc/apache2/apache2.conf
     restart: always
     entrypoint: bash -c "service apache2 restart && tail -f /dev/null"
+    links:
+      - mysql_dev
+      
+  php_54:
+    container_name: php5.4
+    image: mxmotta/php5.4-apache
+    ports:
+      - "8080:80" 
+    volumes:
+      - ..\application:/var/www/html
+      - ..\docker-php5.4\php.ini:/usr/local/etc/php/php.ini
+    restart: always
+    entrypoint: bash -c "service apache2 restart && tail -f /dev/null"
+    links:
+      - mysql_dev
+
+  mysql_dev:
+    container_name: mysql_dev
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - D:\mysql\data\:/var/lib/mysql
+      - D:\mysql\imports:/opt/imports
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123123
+      
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8181:80
+    environment:
+      - PMA_ARBITRARY=1
+    links:
+      - mysql_dev

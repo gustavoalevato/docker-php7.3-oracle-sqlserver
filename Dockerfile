@@ -37,6 +37,8 @@ RUN cd /tmp/files \
 && a2enmod rewrite && service apache2 restart \
 && wget https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit 
 
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+
 RUN apt-get update -y
 RUN apt-get install php7.3-sybase -y 
 
