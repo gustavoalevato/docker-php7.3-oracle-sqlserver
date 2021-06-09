@@ -1,13 +1,16 @@
 version: '2'
 services:
   php_dev:
-    container_name: php7.3-oracle-sqlserver
+    container_name: php7.3-server
     image: gustavoalevato/php7.3-oracle-sqlserver
     ports:
       - "80:80" 
     volumes:
       - ..\application:/var/www/html
+      - ..\datasource:/var/www/datasource
       - .\php.ini:/etc/php/7.3/apache2/php.ini
+      - .\000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ..\srv:/var/www/srv
     restart: always
     entrypoint: bash -c "service apache2 restart && tail -f /dev/null"
     links:
