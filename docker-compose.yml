@@ -1,11 +1,7 @@
 version: '2'
 services:
   php_dev:
-<<<<<<< HEAD
-    container_name: php7.3-server
-=======
     container_name: php73-server
->>>>>>> 8a1e57dcbc51389cd11b64e1a3d07fb0bf1d002b
     image: gustavoalevato/php7.3-oracle-sqlserver
     ports:
       - "80:80" 
